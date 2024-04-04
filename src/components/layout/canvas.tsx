@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { A11yAnnouncer } from "@react-three/a11y";
-import { OrbitControls, Preload, Stats } from "@react-three/drei";
+import { OrbitControls, Preload } from "@react-three/drei";
 
 import useStore from "@/helpers/store";
 

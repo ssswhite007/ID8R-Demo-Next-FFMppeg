@@ -40,7 +40,9 @@ export const useStore = create<AppState>()(
         })),
 
         progress: 0,
-        setProgress: () => set((state) => ({ progress: state})),     
+        setProgress: (v) => {
+          set({ progress: v });
+        },   
 
         gifSize: { width: 300, height: 300 },
         setGIFSize: (v) => {

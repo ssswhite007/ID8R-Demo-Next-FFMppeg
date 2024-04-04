@@ -1,12 +1,10 @@
 import useStore from "@/helpers/store";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { createGIF } from 'gifshot';
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
 
 
-import { useRef, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 
 const ffmpeg = createFFmpeg({ log: true });
 // import Shader from '@/components/canvas/ShaderExample/ShaderExample'
@@ -22,28 +20,6 @@ const save = (url, filename) => {
   link.href = url;
   link.download = filename;
   link.click();
-}
-
-const generateGIF = (videoUrl, gifSize,  setProgress) => {
-  const options = {
-      video: videoUrl,
-      gifWidth: gifSize.width,
-      gifHeight: gifSize.height,
-      numWorkers: 3,
-      frameDuration: 1 / 30,
-      numFrames: 232,
-      sampleInterval: 20, 
-      // interval: 0.1, 
-      progressCallback: e => setProgress(parseInt(e * 100))
-  };
-
-  createGIF(options, obj => {
-      if (!obj.error) {
-          var image = obj.image;
-          save(image, "sample")
-          setProgress(0);
-      }
-  });
 }
 
 const convertToGif = async (videoUrl) => {

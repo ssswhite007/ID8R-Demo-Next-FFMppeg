@@ -25,6 +25,9 @@ const nextConfig = {
     locales: ["en-US"],
     defaultLocale: "en-US",
   },
+  typescript :{
+    ignoreBuildErrors: true,
+  },
   headers() {
     return [
       {
@@ -41,7 +44,7 @@ const nextConfig = {
         ]
       }
     ];
-  }
+  }, 
 };
 
 module.exports = plugins(

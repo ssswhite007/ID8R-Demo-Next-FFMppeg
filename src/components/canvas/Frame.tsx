@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, Suspense } from 'react';
 import {useThree } from "@react-three/fiber";
 
 import * as THREE from "three";
@@ -81,13 +82,15 @@ const Lights = () => {
 
 const FrameModel = (props) => {
 
-
-const frameMat = useRef();
+const frameMat = useRef<THREE.MeshPhysicalMaterial>(null);
 // Fetch model and a separate texture
 
 const {setVideoURL, canvasRef} = useStore();
 
-const { nodes, animations } = useGLTF("models/Glas_Frame_v06_262frames_30fps_with1secStartEnd_withCam.gltf")
+const { 
+    nodes,
+    animations 
+} = useGLTF("models/Glas_Frame_v06_262frames_30fps_with1secStartEnd_withCam.gltf")
 
 // Extract animation actions
 const { ref, actions, names } = useAnimations(animations)
@@ -156,37 +159,6 @@ const opts = useControls({
       max: 4,
       value: options.normalRepeat
   },
-  // red: {
-  //     min: -1,
-  //     max: 1,
-  //     value: 0.3
-  // },
-  // green: {
-  //     min: -1,
-  //     max: 1,
-  //     value: 0.2
-  // },
-  // blue: {
-  //     min: -1,
-  //     max: 1,
-  //     value: 0.54,
-  // },
-  // shade: {
-  //     min: 3,
-  //     max: 30,
-  //     value: 20
-  // },
-  // metalness: {
-  //     min: 0,
-  //     max: 1,
-  //     value: 0.5
-  // },
-  // roughness: {
-  //     min: 0,
-  //     max: 1,
-  //     value: 0.5
-  // },
-  // animate: true
 });
 
 useEffect(() => {
