@@ -162,25 +162,21 @@ const opts = useControls({
 });
 
 useEffect(() => {
-    // Reset and fade in animation after an index has been changed
-    const action = actions[names[0]];
-    action.setLoop(THREE.LoopPingPong, Infinity);
-    // action.reset().fadeIn(0.5).setEffectiveTimeScale(0.85).play(); // control the time scale of the animation
-
-    action.reset().fadeIn(0.2).play();
-    action.play();
-
-    setTimeout(() => {
-      console.log("herer")
-      record(canvasRef, (262000 / 30 -1000)).then((url) => {
-        console.log(url, "1111111111")
-          setVideoURL(url);
-      });
-  }, 1000);
-
-    // In the clean-up phase, fade it out
-    // return () => action.fadeOut(0.2)
-}, [actions, names])
+    if(frameMat.current){
+        const action = actions[names[0]];
+        action.setLoop(THREE.LoopPingPong, Infinity);
+        // action.reset().fadeIn(0.5).setEffectiveTimeScale(0.85).play(); // control the time scale of the animation
+        action.reset().fadeIn(0.2).play();
+        action.play();
+    
+        setTimeout(() => {
+          record(canvasRef, (262000 / 30 -1000)).then((url) => {
+              setVideoURL(url);
+          });
+      }, 1000);
+     
+    }
+}, [actions, names, frameMat])
 
 const { gl, scene } = useThree();
 

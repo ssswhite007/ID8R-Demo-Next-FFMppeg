@@ -19,7 +19,6 @@ const CanvasWrapper = ({ children }) => {
 
   useEffect(() =>{
     if(ref.current){
-      console.log("canvas")
       setCanvasRef(ref.current)
     }
   }, [ref])

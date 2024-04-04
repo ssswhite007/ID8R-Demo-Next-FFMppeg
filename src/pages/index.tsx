@@ -23,7 +23,6 @@ const save = (url, filename) => {
 }
 
 const convertToGif = async (videoUrl) => {
-  console.log(videoUrl, "opopopopopo")
   // save(videoURL, "video")
   // Write the file to memory 
   ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(videoUrl));
@@ -37,7 +36,7 @@ const convertToGif = async (videoUrl) => {
   // Create a URL
   const url = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
  // setGif(url)
-  save(url, "dfdfdfdfsf")
+  save(url, "animation")
 }
 
 const Shader = dynamic(
@@ -78,12 +77,9 @@ const DOM = (props) => {
 
 
   useEffect(() => {
-    console.log(videoUrl, "00000000000000")
     if (videoUrl !=="" && starting) {
-      console.log("hhhhhhhhhhhhhh", videoUrl)
       //  generateGIF(videoUrl, gifSize, setProgress);
         convertToGif(videoUrl)
-        save(videoUrl, "video")
         setStarting(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
