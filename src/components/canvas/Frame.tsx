@@ -161,22 +161,23 @@ const opts = useControls({
   },
 });
 
-useEffect(() => {
-    if(frameMat.current){
-        const action = actions[names[0]];
-        action.setLoop(THREE.LoopPingPong, Infinity);
-        // action.reset().fadeIn(0.5).setEffectiveTimeScale(0.85).play(); // control the time scale of the animation
-        action.reset().fadeIn(0.2).play();
-        action.play();
+
+// useEffect(() => {
+//     if(frameMat.current){
+//         const action = actions[names[0]];
+//         action.setLoop(THREE.LoopPingPong, Infinity);
+//         // action.reset().fadeIn(0.5).setEffectiveTimeScale(0.85).play(); // control the time scale of the animation
+//         action.reset().fadeIn(0.2).play();
+//         action.play();
     
-        setTimeout(() => {
-          record(canvasRef, (262000 / 30 -1000)).then((url) => {
-              setVideoURL(url);
-          });
-      }, 1000);
+//         setTimeout(() => {
+//           record(canvasRef, (262000 / 30 -1000)).then((url) => {
+//               setVideoURL(url);
+//           });
+//       }, 1000);
      
-    }
-}, [actions, names, frameMat])
+//     }
+// }, [actions, names, frameMat])
 
 const { gl, scene } = useThree();
 
@@ -192,10 +193,23 @@ useEffect(() => {
             frameMat.current.envMap = textureData;
             texture.dispose();
             pmremGenerator.dispose();
+
+            const action = actions[names[0]];
+            action.setLoop(THREE.LoopPingPong, Infinity);
+            // action.reset().fadeIn(0.5).setEffectiveTimeScale(0.85).play(); // control the time scale of the animation
+            // action.reset().fadeIn(0.2).play();
+            action.play();
+        
+            setTimeout(() => {
+              record(canvasRef, (262000 / 30 -1000)).then((url) => {
+                  setVideoURL(url);
+              });
+          }, 1000);
+          
         }
     )
 
-}, [loader, pmremGenerator, scene]);
+}, [loader, pmremGenerator, scene,actions]);
 
 return (
     <group ref={ref} {...props} dispose={null}>
