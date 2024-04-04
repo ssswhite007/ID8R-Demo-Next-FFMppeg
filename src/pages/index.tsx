@@ -28,7 +28,7 @@ const convertToGif = async (videoUrl) => {
   ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(videoUrl));
 
   // Run the FFMpeg command
-  await ffmpeg.run('-i', 'test.mp4', '-t', '7.12', '-ss', '0.0',  '-vf', 'scale=400:400',  '-r', '30', '-q:v', '2','-f', 'gif', 'out.gif');
+  await ffmpeg.run('-i', 'test.mp4', '-t', '8.23', '-ss', '0.0',  '-vf', 'scale=400:400',  '-r', '30', '-q:v', '2','-f', 'gif', 'out.gif');
 
   // Read the result
   const data = ffmpeg.FS('readFile', 'out.gif');

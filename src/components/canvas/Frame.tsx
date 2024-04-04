@@ -201,10 +201,10 @@ useEffect(() => {
             action.play();
         
             setTimeout(() => {
-              record(canvasRef, (262000 / 30 -1000)).then((url) => {
+              record(canvasRef, (262000 / 30 -500)).then((url) => {
                   setVideoURL(url);
               });
-          }, 1000);
+          }, 500);
           
         }
     )
