@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { A11yAnnouncer } from "@react-three/a11y";
 import { OrbitControls, Preload } from "@react-three/drei";
-
+import * as THREE from "three";
 import useStore from "@/helpers/store";
 
 const Controls = () => {
@@ -41,7 +41,7 @@ const CanvasWrapper = ({ children }) => {
         gl={{
             preserveDrawingBuffer: true,
             outputEncoding: 3000, // THREE.sRGBEncoding
-            toneMapping: 301, // THREE.ACESFilmicToneMapping
+            toneMapping: THREE.ReinhardToneMapping, // Change to a supported tone mapping method
             toneMappingExposure: 1.25,
         }}
         camera={{ position: [0, 0, 3.22643], fov: 45, near: 1, far: 1000 }}

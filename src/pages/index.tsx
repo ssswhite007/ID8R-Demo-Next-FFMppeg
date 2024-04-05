@@ -39,12 +39,7 @@ const convertToGif = async (videoUrl) => {
   save(url, "animation")
 }
 
-const Shader = dynamic(
-  () => import("@/components/canvas/ShaderExample/ShaderExample"),
-  {
-    ssr: false,
-  }
-);
+
 
 const Frame = dynamic(() => import("@/components/canvas/Frame"), {
   ssr: false,
@@ -61,9 +56,6 @@ const DOM = (props) => {
 
   const {
     videoUrl,
-    setProgress,
-    gifSize,
-    setGIFSize,
   } = useStore();
 
 
@@ -108,12 +100,6 @@ const DOM = (props) => {
 
 // Canvas/R3F components here
 const R3F = () => {
-  // Example of using the router to change pages
-  // It can also be inside R3F component (see `two.tsx` and `Box.tsx`)
-  const { router } = useStore();
-  const handleOnClick = () => {
-    router.push("/two");
-  };
 
   return (
     <>
