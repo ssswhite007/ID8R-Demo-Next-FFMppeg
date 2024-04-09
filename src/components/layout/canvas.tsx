@@ -28,8 +28,8 @@ const CanvasWrapper = ({ children }) => {
                     position: "absolute",
                     left: "50%",
                     top: "50%",
-                    width: "500px",
-                    height: "500px",
+                    width: "600px",
+                    height: "600px",
                     transform: "translate(-50%, -50%)",
                 }}>
     <Canvas
@@ -41,8 +41,8 @@ const CanvasWrapper = ({ children }) => {
         gl={{
             preserveDrawingBuffer: true,
             outputEncoding: 3000, // THREE.sRGBEncoding
-            toneMapping: THREE.ReinhardToneMapping, // Change to a supported tone mapping method
-            toneMappingExposure: 1.25,
+            toneMapping: 301, // Change to a supported tone mapping method
+            toneMappingExposure: 1.65,
         }}
         camera={{ position: [0, 0, 3.22643], fov: 45, near: 1, far: 1000 }}
         style={{

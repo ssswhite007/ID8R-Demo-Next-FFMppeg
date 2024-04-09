@@ -3,20 +3,21 @@ import React, { useEffect, useRef, Suspense } from 'react';
 import {useThree } from "@react-three/fiber";
 
 import * as THREE from "three";
-import { useGLTF, useAnimations } from "@react-three/drei"
+import { useGLTF, useAnimations, useTexture } from "@react-three/drei"
 
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import { PMREMGenerator } from "three/src/extras/PMREMGenerator";
 import { useControls } from "leva";
+import { TextureLoader } from "three/src/loaders/TextureLoader";
 
 import useStore from "@/helpers/store";
 
 const options = {
-  color: "#51c4f5",
+  color: "#37baf2",
   enableSwoopingCamera: false,
   enableRotation: false,
   metalness: 1.00,
-  roughness: 0.25,
+  roughness: 0.2,
   transmission: 0.00,
   ior: 1.00,
   reflectivity: 0.73,
@@ -80,6 +81,7 @@ const Lights = () => {
   );
 };
 
+
 const FrameModel = (props) => {
 
 const frameMat = useRef<THREE.MeshPhysicalMaterial>(null);
@@ -90,7 +92,11 @@ const {setVideoURL, canvasRef} = useStore();
 const { 
     nodes,
     animations 
-} = useGLTF("models/Glas_Frame_v06_262frames_30fps_with1secStartEnd_withCam.gltf")
+} = useGLTF("models/Glas_Frame_v07_262frames_30fps_with1secStartEnd_withCam.gltf")
+
+console.log(nodes, "test")
+
+const colorMap = useTexture("textures/test.jpg")
 
 // Extract animation actions
 const { ref, actions, names } = useAnimations(animations)
@@ -213,171 +219,207 @@ useEffect(() => {
 
 return (
     <group ref={ref} {...props} dispose={null}>
-        <group
+    <group
+        // position={[-0.016, 0, 0]}
+        // rotation={[-0.284, 0.243, 0.12]}
+    >
+        <mesh
+            name="Shape_03"
+            castShadow
+            receiveShadow
+            geometry={nodes.Shape_03.geometry}
+            material={nodes.Shape_03.material}
+            position={[-0.025, -0.771, -0.212]}
+            rotation={[-2.906, 0.27, 0.053]}
+            scale={[0.001, -0.001, 0.001]}
+        />
+        <mesh
+            name="Shape_02"
+            castShadow
+            receiveShadow
+            geometry={nodes.Shape_02.geometry}
+            material={nodes.Shape_02.material}
+            position={[-0.129, -0.76, -0.239]}
+            rotation={[-2.906, 0.27, 0.053]}
+            scale={[0.001, -0.001, 0.001]}
+        />
+        <mesh
+            name="Shape_01"
+            castShadow
+            receiveShadow
+            geometry={nodes.Shape_01.geometry}
+            material={nodes.Shape_01.material}
+            position={[-0.095, -0.764, -0.23]}
+            rotation={[-2.906, 0.27, 0.053]}
+            scale={[0.001, -0.001, 0.001]}
+        />
+        <mesh
+            name="Shape_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Shape_0.geometry}
+            material={nodes.Shape_0.material}
+            position={[0.046, -0.781, -0.194]}
+            rotation={[-2.906, 0.27, 0.053]}
+            scale={[0.001, -0.001, 0.001]}
+        />
+        <mesh
+            name="image"
+            castShadow
+            receiveShadow
+            geometry={nodes.image.geometry}
+            material={nodes.image.material}
+            position={[0.029, -0.016, 0.015]}
+            rotation={[0.262, -0.266, 3.092]}
         >
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Shape_03.geometry}
-                material={nodes.Shape_03.material}
-                position={[-0.025, -0.771, -0.212]}
-                rotation={[-2.906, 0.27, 0.053]}
-                scale={[0.001, -0.001, 0.001]}
+            <meshStandardMaterial
+                map={colorMap}
+                side={THREE.DoubleSide}
+                // color={opts.color}
+                // metalness={opts.metalness}
+                // roughness={opts.roughness}
+                // transmission={opts.transmission}
+                // ior={opts.ior}
+                // reflectivity={opts.reflectivity}
+                // thickness={opts.thickness}
+                // clearcoat={opts.clearcoat}
+                // clearcoatRoughness={opts.clearcoatRoughness}
+                // // normalMap={texture}
+                // // normalMap={normalMapTexture}
+                // // clearcoatNormalMap={normalMapTexture}
+                // normalScale={new THREE.Vector2(opts.normalScale)}
+                // clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
             />
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Shape_02.geometry}
-                material={nodes.Shape_02.material}
-                position={[-0.129, -0.76, -0.239]}
-                rotation={[-2.906, 0.27, 0.053]}
-                scale={[0.001, -0.001, 0.001]}
+        </mesh>
+        <group position={[0.982, -0.851, 0.064]} rotation={[0.266, -0.192, -0.049]} scale={0.01}>
+            {/* <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes["Shimmer_Logo_Wyn-01"].children[0].geometry}
+            material={nodes["Shimmer_Logo_Wyn-01"].children[0].material}
+            position={[3.353, -3.001, 5.405]}
+            rotation={[0, -0.066, 0]}
+        >
+            <meshPhysicalMaterial
+                ref={frameMat}
+                color={options.color}
+                metalness={opts.metalness}
+                roughness={opts.roughness}
+                transmission={opts.transmission}
+                ior={opts.ior}
+                reflectivity={opts.reflectivity}
+                thickness={opts.thickness}
+                clearcoat={opts.clearcoat}
+                clearcoatRoughness={opts.clearcoatRoughness}
+                // normalMap={texture}
+                // normalMap={normalMapTexture}
+                // clearcoatNormalMap={normalMapTexture}
+                normalScale={new THREE.Vector2(opts.normalScale)}
+                clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
             />
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Shape_01.geometry}
-                material={nodes.Shape_01.material}
-                position={[-0.095, -0.764, -0.23]}
-                rotation={[-2.906, 0.27, 0.053]}
-                scale={[0.001, -0.001, 0.001]}
+        </mesh> */}
+            {/* <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Shape_1.geometry}
+            material={nodes.Shape_1.material}
+            position={[1.349, -5.182, 5.273]}
+            rotation={[0, -0.066, 0]}
+        >
+            <meshPhysicalMaterial
+                ref={frameMat}
+                color={opts.color}
+                metalness={opts.metalness}
+                roughness={opts.roughness}
+                transmission={opts.transmission}
+                ior={opts.ior}
+                reflectivity={opts.reflectivity}
+                thickness={opts.thickness}
+                clearcoat={opts.clearcoat}
+                clearcoatRoughness={opts.clearcoatRoughness}
+                // normalMap={texture}
+                // normalMap={normalMapTexture}
+                // clearcoatNormalMap={normalMapTexture}
+                normalScale={new THREE.Vector2(opts.normalScale)}
+                clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
             />
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Shape_0.geometry}
-                material={nodes.Shape_0.material}
-                position={[0.046, -0.781, -0.194]}
-                rotation={[-2.906, 0.27, 0.053]}
-                scale={[0.001, -0.001, 0.001]}
-            />
-            <group position={[0.982, -0.851, 0.064]} rotation={[0.266, -0.192, -0.049]} scale={0.01}>
-                {/* <mesh
-                    castShadow
-                    receiveShadow
-                    geometry={nodes["Shimmer_Logo_Wyn-01"].children[0].geometry}
-                    material={nodes["Shimmer_Logo_Wyn-01"].children[0].material}
-                    position={[3.353, -3.001, 5.405]}
-                    rotation={[0, -0.066, 0]}
-                >
-                    <meshPhysicalMaterial
-                        ref={frameMat}
-                        color={options.color}
-                        metalness={opts.metalness}
-                        roughness={opts.roughness}
-                        transmission={opts.transmission}
-                        ior={opts.ior}
-                        reflectivity={opts.reflectivity}
-                        thickness={opts.thickness}
-                        clearcoat={opts.clearcoat}
-                        clearcoatRoughness={opts.clearcoatRoughness}
-                        // normalMap={texture}
-                        // normalMap={normalMapTexture}
-                        // clearcoatNormalMap={normalMapTexture}
-                        normalScale={new THREE.Vector2(opts.normalScale)}
-                        clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
-                    />
-                </mesh> */}
-                {/* <mesh
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Shape_1.geometry}
-                    material={nodes.Shape_1.material}
-                    position={[1.349, -5.182, 5.273]}
-                    rotation={[0, -0.066, 0]}
-                >
-                    <meshPhysicalMaterial
-                        ref={frameMat}
-                        color={opts.color}
-                        metalness={opts.metalness}
-                        roughness={opts.roughness}
-                        transmission={opts.transmission}
-                        ior={opts.ior}
-                        reflectivity={opts.reflectivity}
-                        thickness={opts.thickness}
-                        clearcoat={opts.clearcoat}
-                        clearcoatRoughness={opts.clearcoatRoughness}
-                        // normalMap={texture}
-                        // normalMap={normalMapTexture}
-                        // clearcoatNormalMap={normalMapTexture}
-                        normalScale={new THREE.Vector2(opts.normalScale)}
-                        clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
-                    />
-                </mesh> */}
-            </group>
-            
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Cube_21.geometry}
-                material={nodes.Cube_21.material}
-                position={[-0.056, 0.015, -0.074]}
-                rotation={[0.263, -0.249, -0.05]}
-                scale={[0.0077, 0.0077, 0.0087]}
-            >
-                <meshPhysicalMaterial
-                    ref={frameMat}
-                    color={opts.color}
-                    metalness={opts.metalness}
-                    roughness={opts.roughness}
-                    transmission={opts.transmission}
-                    ior={opts.ior}
-                    reflectivity={opts.reflectivity}
-                    thickness={opts.thickness}
-                    clearcoat={opts.clearcoat}
-                    clearcoatRoughness={opts.clearcoatRoughness}
-                    // normalMap={texture}
-                    // normalMap={normalMapTexture}
-                    // clearcoatNormalMap={normalMapTexture}
-                    normalScale={new THREE.Vector2(opts.normalScale)}
-                    clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
-                />
-            </mesh>
-            <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Cube_2.geometry}
-                material={nodes.Cube_2.material}
-                position={[-0.119, 0.013, -0.047]}
-                rotation={[0.263, -0.249, -0.05]}
-                scale={[0.01, 0.01, 0.011]}
-            >
-                <meshPhysicalMaterial
-                    ref={frameMat}
-                    color={opts.color}
-                    metalness={opts.metalness}
-                    roughness={opts.roughness}
-                    transmission={opts.transmission}
-                    ior={opts.ior}
-                    reflectivity={opts.reflectivity}
-                    thickness={opts.thickness}
-                    clearcoat={opts.clearcoat}
-                    clearcoatRoughness={opts.clearcoatRoughness}
-                    // normalMap={texture}
-                    // normalMap={normalMapTexture}
-                    // clearcoatNormalMap={normalMapTexture}
-                    normalScale={new THREE.Vector2(opts.normalScale)}
-                    clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
-                />
-            </mesh>
-            <directionalLight
-                color={"#FFB6C1"}
-                intensity={0.2}
-                decay={2}
-                rotation={[-0.506, 0.629, 0.756]}
-            />
-            <directionalLight
-                color={"#FFB6C1"}
-                intensity={0.2}
-                decay={2}
-            />
-            <pointLight
-                color={"#FFB6C1"}
-                intensity={0.2}
-                position={[200, 200, 200]}
-            />
+        </mesh> */}
         </group>
+
+        <mesh
+            name="Cube_21"
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube_21.geometry}
+            material={nodes.Cube_21.material}
+            position={[-0.056, 0.015, -0.074]}
+            rotation={[0.263, -0.249, -0.05]}
+            scale={[0.0077, 0.0077, 0.0087]}
+        >
+            <meshPhysicalMaterial
+                ref={frameMat}
+                color={opts.color}
+                metalness={opts.metalness}
+                roughness={opts.roughness}
+                transmission={opts.transmission}
+                ior={opts.ior}
+                reflectivity={opts.reflectivity}
+                thickness={opts.thickness}
+                clearcoat={opts.clearcoat}
+                clearcoatRoughness={opts.clearcoatRoughness}
+                // normalMap={texture}
+                // normalMap={normalMapTexture}
+                // clearcoatNormalMap={normalMapTexture}
+                normalScale={new THREE.Vector2(opts.normalScale)}
+                clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
+            />
+        </mesh>
+        <mesh
+            name="Cube_2"
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube_2.geometry}
+            material={nodes.Cube_2.material}
+            position={[-0.119, 0.013, -0.047]}
+            rotation={[0.263, -0.249, -0.05]}
+            scale={[0.01, 0.01, 0.011]}
+        >
+            <meshPhysicalMaterial
+                ref={frameMat}
+                color={opts.color}
+                metalness={opts.metalness}
+                roughness={opts.roughness}
+                transmission={opts.transmission}
+                ior={opts.ior}
+                reflectivity={opts.reflectivity}
+                thickness={opts.thickness}
+                clearcoat={opts.clearcoat}
+                clearcoatRoughness={opts.clearcoatRoughness}
+                // normalMap={texture}
+                // normalMap={normalMapTexture}
+                // clearcoatNormalMap={normalMapTexture}
+                normalScale={new THREE.Vector2(opts.normalScale)}
+                clearcoatNormalScale={new THREE.Vector2(opts.clearcoatNormalScale)}
+            />
+        </mesh>
+        <directionalLight
+            color={"#FFB6C1"}
+            intensity={0.22}
+            decay={2}
+            rotation={[-0.506, 0.629, 0.756]}
+        />
+        <directionalLight
+            color={"#FFB6C1"}
+            intensity={0.22}
+            decay={2}
+        />
+        <pointLight
+            color={"#FFB6C1"}
+            intensity={0.22}
+            position={[200, 200, 200]}
+        />
     </group>
+</group>
 )
 }
 

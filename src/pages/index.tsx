@@ -28,8 +28,17 @@ const convertToGif = async (videoUrl) => {
   ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(videoUrl));
 
   // Run the FFMpeg command
-  await ffmpeg.run('-i', 'test.mp4', '-t', '8.23', '-ss', '0.0',  '-vf', 'scale=400:400',  '-r', '30', '-q:v', '2','-f', 'gif', 'out.gif');
-
+  await ffmpeg.run(
+    '-i', 'test.mp4',        // Input file
+    '-t', '8.23',            // Duration of output GIF (8.23 seconds)
+    '-ss', '0.0',            // Start time (0 seconds, beginning of input)
+    '-vf', 'fps=30,scale=800:800:flags=lanczos',   // Set frame rate to 30 fps and resize to 800px width using Lanczos filter
+    '-r', '30',
+    '-loop', '0',            // Loop the GIF infinitely
+    '-q:v', '1',             // Highest quality scale for the output GIF (1 is best quality)
+    '-f', 'gif',             // Output format is GIF
+    'out.gif'                // Output file name
+  );
   // Read the result
   const data = ffmpeg.FS('readFile', 'out.gif');
 
