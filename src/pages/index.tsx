@@ -32,7 +32,7 @@ const convertToGif = async (videoUrl) => {
     '-i', 'test.mp4',        // Input file
     '-t', '8.23',            // Duration of output GIF (8.23 seconds)
     '-ss', '0.0',            // Start time (0 seconds, beginning of input)
-    '-vf', 'fps=30,scale=800:800:flags=lanczos',   // Set frame rate to 30 fps and resize to 800px width using Lanczos filter
+    '-vf', 'fps=30,scale=600:600:flags=lanczos',   // Set frame rate to 30 fps and resize to 800px width using Lanczos filter
     '-r', '30',
     '-loop', '0',            // Loop the GIF infinitely
     '-q:v', '1',             // Highest quality scale for the output GIF (1 is best quality)
